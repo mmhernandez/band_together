@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Band Together</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container d-flex justify-content-between w-75 my-4 mx-auto">
+        <h1>Rock On {{user.first_name}}!!</h1>
+        <div>
+            <a href="/mybands" class="btn btn-warning me-2">My Bands</a>
+            <a href="/new/sighting" class="btn btn-warning me-2">New Band</a>
+            <a href="/logout" class="btn btn-secondary">Logout</a>
+        </div>
+    </div>
+    <main class="container w-75">
+        <h3>All Bands</h3>
+        <table class="table table-hover">
+            <thead class="bg-dark text-warning">
+                <tr>
+                    <th>Band Name</th>
+                    <th>Founding Member</th>
+                    <th>Genre</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for band in my_bands %}
+                    <tr>
+                        <td>{{band.name}}</td>
+                        <td>{{band.creator.first_name}} {{band.creator.last_name}}</td>
+                        <td>{{band.genre}}</td>
+                        {% if band.creator.id == session["id"] %}
+                            <td>
+                                <a href="/edit/{{band.id}}" class="link-warning me-2">Edit</a>
+                                <a href="/delete/{{band.id}}" class="link-danger">Delete</a>
+                            </td>
+                        {% else %}
+                            <td>
+                                {% if band.can_join == True %}
+                                    <a href="/join/{{band.id}}" class="link-warning">Join</a>
+                                {% else %}
+                                    <a href="" class="link-secondary">Quit</a>
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

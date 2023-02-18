@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Band Together</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container d-flex justify-content-between w-75 my-4 mx-auto">
+        <h1>Rock On {{user.first_name}}!!</h1>
+        <div>
+            <a href="/mybands" class="btn btn-warning me-2">My Bands</a>
+            <a href="/dashboard" class="btn btn-warning me-2">Dashboard</a>
+            <a href="/logout" class="btn btn-secondary">Logout</a>
+        </div>
+    </div>
+    <main class="container w-50 mx-auto mt-5">
+        <div class="container bg-light p-4">
+            <p class="fs-1">Create a Band</p>
+            <form action="/band/add" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Band Name</label>
+                    {% if "name" in session %}
+                        <input type="text" name="name" class="form-control" value="{{session['name']}}">
+                    {% else %}
+                        <input type="text" name="name" class="form-control">
+                    {% endif %}
+                    {% with messages = get_flashed_messages(category_filter = ["name"])%}
+                        {% if messages %}
+                            {% for msg in messages %}
+                                <p class="text-danger">{{msg}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="mb-3">
+                    <label for="genre" class="form-label">Music Genre</label>
+                    {% if "genre" in session %}
+                        <input type="text" name="genre" class="form-control" value="{{session['genre']}}">
+                    {% else %}
+                        <input type="text" name="genre" class="form-control">
+                    {% endif %}
+                    {% with messages = get_flashed_messages(category_filter = ["genre"])%}
+                        {% if messages %}
+                            {% for msg in messages %}
+                                <p class="text-danger">{{msg}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">Home City</label>
+                    {% if "city" in session %}
+                        <input type="text" name="city" class="form-control" value="{{session['city']}}">
+                    {% else %}
+                        <input type="text" name="city" class="form-control">
+                    {% endif %}
+                    {% with messages = get_flashed_messages(category_filter = ["city"])%}
+                        {% if messages %}
+                            {% for msg in messages %}
+                                <p class="text-danger">{{msg}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <input type="submit" value="Create" class="btn btn-warning mt-3">
+            </form>
+        </div>
+    </main>
+</body>
+</html>

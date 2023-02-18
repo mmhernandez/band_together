@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Band Together</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="d-flex gap-4 my-5 mx-auto w-75">
+        <div class="container rounded w-50 bg-dark text-light p-4 mx-auto">
+            <form action="/register" method="post">
+                <p class="fs-1 text-warning mb-3">Register</p>
+            <div class="mb-3">
+                <label for="fname" class="form-label">First Name <span class="text-danger">*</span></label>
+                {% if "fname" in session %}
+                    <input type="text" name="fname" class="form-control" value="{{session['fname']}}">
+                {% else %}
+                    <input type="text" name="fname" class="form-control">
+                {% endif %}
+                {% with messages = get_flashed_messages(category_filter = ["first_name"])%}
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <p class="text-danger">{{msg}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div class="mb-3">
+                <label for="lname" class="form-label">Last Name <span class="text-danger">*</span></label>
+                {% if "lname" in session %}
+                    <input type="text" name="lname" class="form-control" value="{{session['lname']}}">
+                {% else %}
+                    <input type="text" name="lname" class="form-control">
+                {% endif %}
+                {% with messages = get_flashed_messages(category_filter = ["last_name"])%}
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <p class="text-danger">{{msg}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                {% if "em" in session %}
+                    <input type="text" name="email" class="form-control" value="{{session['em']}}">
+                {% else %}
+                    <input type="text" name="email" class="form-control">
+                {% endif %}
+                {% with messages = get_flashed_messages(category_filter = ["email"])%}
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <p class="text-danger">{{msg}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                <input type="password" name="password" class="form-control">
+                {% with messages = get_flashed_messages(category_filter = ["password"])%}
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <p class="text-danger">{{msg}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% with messages = get_flashed_messages(category_filter = ["confirm_password"])%}
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <p class="text-danger">{{msg}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                <input type="password" name="confirm_password" class="form-control">
+                {% with messages = get_flashed_messages(category_filter = ["confirm_password"])%}
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <p class="text-danger">{{msg}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <input type="submit" value="Register" class="btn btn-warning my-3">
+            <a href="/logout" class="btn btn-secondary ms-2">Reset Form</a>
+            </form>
+        </div>
+        <div class="container w-50 text-dark p-4 mx-auto">
+            <p class="fs-1 text-success">Login</p>
+            <form action="/login" method="post">
+                {% with messages = get_flashed_messages(category_filter = ["login"])%}
+                        {% if messages %}
+                            {% for msg in messages %}
+                                <p class="text-danger">{{msg}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                        <input type="text" name="email" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                    <input type="password" name="password" class="form-control">
+                </div>
+                <input type="submit" value="Login" class="btn btn-success my-3">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
