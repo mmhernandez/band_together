@@ -132,19 +132,22 @@ class User:
         '''
         results = connectToMySQL(db).query_db(query, data)
         user_obj = cls(results[0])
-        for row in results:
-            band_data = {
-                "id" : row["B.id"],
-                "name" : row["name"],
-                "genre" : row["genre"],
-                "city" : row["city"],
-                "created_at" : row["B.created_at"],
-                "updated_at" : row["B.updated_at"],
-                "creator_id" : row["creator_id"]
-            }
-            band_obj = band.Band(band_data)
-            user_obj.bands.append(band_obj)
-        return user_obj
+        if results[0]['B.id'] == None:
+            return user_obj
+        else:
+            for row in results:
+                band_data = {
+                    "id" : row["B.id"],
+                    "name" : row["name"],
+                    "genre" : row["genre"],
+                    "city" : row["city"],
+                    "created_at" : row["B.created_at"],
+                    "updated_at" : row["B.updated_at"],
+                    "creator_id" : row["creator_id"]
+                }
+                band_obj = band.Band(band_data)
+                user_obj.bands.append(band_obj)
+            return user_obj
     
     @classmethod
     def get_one_with_joined_bands(cls, data):
@@ -157,17 +160,20 @@ class User:
         '''
         results = connectToMySQL(db).query_db(query, data)
         user_obj = cls(results[0])
-        for row in results:
-            band_data = {
-                "id" : row["B.id"],
-                "name" : row["name"],
-                "genre" : row["genre"],
-                "city" : row["city"],
-                "created_at" : row["B.created_at"],
-                "updated_at" : row["B.updated_at"],
-                "creator_id" : row["creator_id"]
-            }
-            band_obj = band.Band(band_data)
-            user_obj.bands.append(band_obj)
-        return user_obj
+        if results[0]["BJ.id"] == None:
+            return user_obj
+        else:
+            for row in results:
+                band_data = {
+                    "id" : row["B.id"],
+                    "name" : row["name"],
+                    "genre" : row["genre"],
+                    "city" : row["city"],
+                    "created_at" : row["B.created_at"],
+                    "updated_at" : row["B.updated_at"],
+                    "creator_id" : row["creator_id"]
+                }
+                band_obj = band.Band(band_data)
+                user_obj.bands.append(band_obj)
+            return user_obj
     

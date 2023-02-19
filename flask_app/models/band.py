@@ -62,7 +62,6 @@ class Band:
             LEFT JOIN users U on U.id = B.creator_id
         '''
         results = connectToMySQL(db).query_db(query)
-        print(f"results = {results}")
         bands = []
         if len(results) < 1:
             return bands
@@ -81,7 +80,6 @@ class Band:
                 }
                 band_obj.creator = user.User(user_obj)
                 join_bool = cls.band_joins({"band_id": band_obj.id, "creator_id": session_user_id})
-                print(f"band_id = {band_obj.id}   creator_id = {band_obj.creator.id}    join_bool = {join_bool}")
                 band_obj.can_join = join_bool
                 bands.append(band_obj)
         return bands
@@ -124,7 +122,6 @@ class Band:
                 AND user_id = %(creator_id)s;
         '''
         result = connectToMySQL(db).query_db(query, data)
-        print(f"result[0] = {result[0]}")
         if result[0]['count'] == 0:
             return True
         return False

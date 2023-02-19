@@ -43,7 +43,7 @@
                                 {% if band.can_join == True %}
                                     <a href="/join/{{band.id}}" class="link-warning">Join</a>
                                 {% else %}
-                                    <a href="" class="link-secondary">Quit</a>
+                                    <a href="/quit/{{band.id}}" class="link-secondary">Quit</a>
                                 {% endif %}
                             </td>
                         {% endif %}

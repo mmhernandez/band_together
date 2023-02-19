@@ -108,6 +108,7 @@ def add_band_join(id):
 
 @app.route("/quit/<int:id>")
 def remove_band_join(id):
+    print(f'id = {id}')
     if "id" in session:
         join_data = {
             "band_id": id,
